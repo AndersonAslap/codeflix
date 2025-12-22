@@ -1,11 +1,10 @@
 package com.codeflix.admin.catalogo.domain.category;
 
+import com.codeflix.admin.catalogo.domain.AggregateRoot;
 import java.time.Instant;
-import java.util.UUID;
 
-public class Category {
+public class Category extends AggregateRoot<CategoryId> {
 
-    private String id;
     private String name;
     private String description;
     private boolean isActive;
@@ -13,9 +12,8 @@ public class Category {
     private Instant updatedAt;
     private Instant deletedAt;
 
-
     private Category(
-            String id,
+            CategoryId id,
             String name,
             String description,
             boolean isActive,
@@ -23,7 +21,7 @@ public class Category {
             Instant updatedAt,
             Instant deletedAt
     ) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.description = description;
         this.isActive = isActive;
@@ -37,13 +35,18 @@ public class Category {
             final String description,
             final boolean isActive
     ) {
-        final var id = UUID.randomUUID().toString();
-        final var createdAt = Instant.now();
-        final var updatedAt = Instant.now();
-        return  new Category(id, name, description, isActive, createdAt, updatedAt, null);
+        return  new Category(
+                CategoryId.unique(),
+                name,
+                description,
+                isActive,
+                Instant.now(),
+                Instant.now(), 
+                null
+        );
     }
 
-    public String getId() {
+    public CategoryId getId() {
         return id;
     }
 
