@@ -23,4 +23,22 @@ public class CategoryTest {
         Assertions.assertNotNull(category.getUpdatedAt());
         Assertions.assertNull(category.getDeletedAt());
     }
+
+    @Test
+    public void givenAnInvalidParams_whenCallNewCategoryAndValidate_thenShouldReceiveError() {
+        final String expectedName = null;
+        final var expectedDescription = "A categoria mais assistida";
+        final var isActive = true;
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "'name' should not be null";
+
+        final var category =
+                Category.newCategory(expectedName, expectedDescription, isActive);
+
+        final var exception =
+                Assertions.assertThrows(DomainExpection.class, () -> category.validate());
+
+        Assertions.assertEquals(expectedErrorCount, exception.getError().size());
+        Assertions.assertEquals(expectedErrorMessage, exception.getError().get(0));
+    }
 }

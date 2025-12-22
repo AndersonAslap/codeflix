@@ -41,7 +41,7 @@ public class Category extends AggregateRoot<CategoryId> {
                 description,
                 isActive,
                 Instant.now(),
-                Instant.now(), 
+                Instant.now(),
                 null
         );
     }
