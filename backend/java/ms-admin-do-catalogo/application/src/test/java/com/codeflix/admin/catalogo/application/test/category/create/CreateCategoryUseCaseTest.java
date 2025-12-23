@@ -1,5 +1,7 @@
 package com.codeflix.admin.catalogo.application.test.category.create;
 
+import com.codeflix.admin.catalogo.application.category.create.CreateCategoryCommand;
+import com.codeflix.admin.catalogo.application.category.create.DefaultCreateCategoryUseCase;
 import com.codeflix.admin.catalogo.domain.category.CategoryGateway;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,8 +18,8 @@ public class CreateCategoryUseCaseTest {
 
     @Test
     public void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() {
-        final var expectedName = "";
-        final var expectedDescription = "";
+        final var expectedName = "filmes";
+        final var expectedDescription = "description";
         final var expectedIsActive = true;
 
         final var command = CreateCategoryCommand.with(
@@ -31,7 +33,7 @@ public class CreateCategoryUseCaseTest {
         Mockito.when(categoryGateway.create(Mockito.any()))
                 .thenAnswer(AdditionalAnswers.returnsFirstArg());
 
-        final var useCase = new CreateCategoryUseCase(categoryGateway);
+        final var useCase = new DefaultCreateCategoryUseCase(categoryGateway);
         final var output = useCase.execute(command);
 
         Assertions.assertNotNull(output);
