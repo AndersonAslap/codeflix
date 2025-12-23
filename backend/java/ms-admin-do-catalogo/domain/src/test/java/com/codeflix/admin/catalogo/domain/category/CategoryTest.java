@@ -162,17 +162,17 @@ public class CategoryTest {
         Assertions.assertTrue(category.isActive());
         Assertions.assertNull(category.getDeletedAt());
 
-        final var category = category.deactivate();
+        final var categoryInactivated = category.deactivate();
 
-        Assertions.assertDoesNotThrow(() -> category.validate(new ThrowsValidationHandler()));
+        Assertions.assertDoesNotThrow(() -> categoryInactivated.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(category.getId(), category.getId());
-        Assertions.assertEquals(expectedName, category.getName());
-        Assertions.assertEquals(expectedDescription, category.getDescription());
-        Assertions.assertEquals(expectedIsActive, category.isActive());
-        Assertions.assertEquals(createdAt, category.getCreatedAt());
-        Assertions.assertTrue(category.getUpdatedAt().isAfter(updatedAt));
-        Assertions.assertNotNull(category.getDeletedAt());
+        Assertions.assertEquals(category.getId(), categoryInactivated.getId());
+        Assertions.assertEquals(expectedName, categoryInactivated.getName());
+        Assertions.assertEquals(expectedDescription, categoryInactivated.getDescription());
+        Assertions.assertEquals(expectedIsActive, categoryInactivated.isActive());
+        Assertions.assertEquals(createdAt, categoryInactivated.getCreatedAt());
+        Assertions.assertTrue(categoryInactivated.getUpdatedAt().isAfter(updatedAt));
+        Assertions.assertNotNull(categoryInactivated.getDeletedAt());
     }
 
     @Test
@@ -181,28 +181,28 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-        final var category1 =
+        final var category =
                 Category.newCategory(expectedName, expectedDescription, false);
-
-        Assertions.assertDoesNotThrow(() -> category1.validate(new ThrowsValidationHandler()));
-
-        final var createdAt = category1.getCreatedAt();
-        final var updatedAt = category1.getUpdatedAt();
-
-        Assertions.assertFalse(category1.isActive());
-        Assertions.assertNotNull(category1.getDeletedAt());
-
-        final var category = category1.activate();
 
         Assertions.assertDoesNotThrow(() -> category.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(category.getId(), category.getId());
-        Assertions.assertEquals(expectedName, category.getName());
-        Assertions.assertEquals(expectedDescription, category.getDescription());
-        Assertions.assertEquals(expectedIsActive, category.isActive());
-        Assertions.assertEquals(createdAt, category.getCreatedAt());
-        Assertions.assertTrue(category.getUpdatedAt().isAfter(updatedAt));
-        Assertions.assertNull(category.getDeletedAt());
+        final var createdAt = category.getCreatedAt();
+        final var updatedAt = category.getUpdatedAt();
+
+        Assertions.assertFalse(category.isActive());
+        Assertions.assertNotNull(category.getDeletedAt());
+
+        final var categoryActivated = category.activate();
+
+        Assertions.assertDoesNotThrow(() -> categoryActivated.validate(new ThrowsValidationHandler()));
+
+        Assertions.assertEquals(categoryActivated.getId(), category.getId());
+        Assertions.assertEquals(expectedName, categoryActivated.getName());
+        Assertions.assertEquals(expectedDescription, categoryActivated.getDescription());
+        Assertions.assertEquals(expectedIsActive, categoryActivated.isActive());
+        Assertions.assertEquals(createdAt, categoryActivated.getCreatedAt());
+        Assertions.assertTrue(categoryActivated.getUpdatedAt().isAfter(updatedAt));
+        Assertions.assertNull(categoryActivated.getDeletedAt());
     }
 
     @Test
