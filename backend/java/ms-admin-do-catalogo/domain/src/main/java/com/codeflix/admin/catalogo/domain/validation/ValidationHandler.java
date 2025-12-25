@@ -13,6 +13,14 @@ public interface ValidationHandler {
     List<Error> getErrors();
 
     default boolean hasErrors() {
-        return !getErrors().isEmpty();
+        return (getErrors() != null && !getErrors().isEmpty());
+    }
+
+    default Error firstError() {
+        if (getErrors() != null && !getErrors().isEmpty()) {
+            return getErrors().getFirst();
+        } else {
+            return null;
+        }
     }
 }

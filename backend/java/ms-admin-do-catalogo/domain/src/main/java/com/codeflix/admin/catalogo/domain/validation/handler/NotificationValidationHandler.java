@@ -24,6 +24,10 @@ public class NotificationValidationHandler implements ValidationHandler {
         return new NotificationValidationHandler(new ArrayList<>()).append(error);
     }
 
+    public static NotificationValidationHandler create(final Throwable error) {
+        return NotificationValidationHandler.create(new Error(error.getMessage()));
+    }
+
     @Override
     public NotificationValidationHandler append(Error error) {
         this.errors.add(error);
