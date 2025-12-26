@@ -154,10 +154,12 @@ public class CategoryTest {
         final var category =
                 Category.newCategory(expectedName, expectedDescription, true);
 
+        final var clone = category.clone();
+
         Assertions.assertDoesNotThrow(() -> category.validate(new ThrowsValidationHandler()));
 
-        final var createdAt = category.getCreatedAt();
-        final var updatedAt = category.getUpdatedAt();
+        final var createdAt = clone.getCreatedAt();
+        final var updatedAt = clone.getUpdatedAt();
 
         Assertions.assertTrue(category.isActive());
         Assertions.assertNull(category.getDeletedAt());
@@ -214,10 +216,12 @@ public class CategoryTest {
         final var category =
                 Category.newCategory("Film", "A categoria", expectedIsActive);
 
+        final var clone = category.clone();
+
         Assertions.assertDoesNotThrow(() -> category.validate(new ThrowsValidationHandler()));
 
-        final var createdAt = category.getCreatedAt();
-        final var updatedAt = category.getUpdatedAt();
+        final var createdAt = clone.getCreatedAt();
+        final var updatedAt = clone.getUpdatedAt();
 
         final var categoryUpdated = category.update(expectedName, expectedDescription, expectedIsActive);
 
@@ -241,12 +245,14 @@ public class CategoryTest {
         final var category =
                 Category.newCategory("Film", "A categoria", true);
 
+        final var clone = category.clone();
+
         Assertions.assertDoesNotThrow(() -> category.validate(new ThrowsValidationHandler()));
         Assertions.assertTrue(category.isActive());
         Assertions.assertNull(category.getDeletedAt());
 
-        final var createdAt = category.getCreatedAt();
-        final var updatedAt = category.getUpdatedAt();
+        final var createdAt = clone.getCreatedAt();
+        final var updatedAt = clone.getUpdatedAt();
 
         final var categoryUpdated = category.update(expectedName, expectedDescription, expectedIsActive);
 

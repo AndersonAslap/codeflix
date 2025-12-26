@@ -1,5 +1,6 @@
 package com.codeflix.admin.catalogo.application.test.category.delete;
 
+import com.codeflix.admin.catalogo.application.category.delete.DefaultDeleteCategoryUseCase;
 import com.codeflix.admin.catalogo.domain.category.Category;
 import com.codeflix.admin.catalogo.domain.category.CategoryGateway;
 import com.codeflix.admin.catalogo.domain.category.CategoryId;
