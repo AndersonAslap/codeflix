@@ -2,6 +2,8 @@ package com.codeflix.admin.catalogo.domain.category;
 
 import com.codeflix.admin.catalogo.domain.pagination.Pagination;
 
+import java.util.Optional;
+
 public interface CategoryGateway {
 
     Category create(Category category);
@@ -10,7 +12,7 @@ public interface CategoryGateway {
 
     void deleteById(CategoryId categoryId);
 
-    Category findById(CategoryId categoryId);
+    Optional<Category> findById(CategoryId categoryId);
 
     Pagination<Category> findAll(CategorySearchQuery query);
 }
