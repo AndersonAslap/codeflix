@@ -120,7 +120,7 @@ public class UpdateCategoryUseCaseTest {
                 expectedIsActive);
 
         when(this.categoryGateway.findById(eq(expectedId)))
-            .thenReturn(Optional.of(Category.with(category)));
+            .thenReturn(Optional.of(Category.with(category.clone())));
 
         when(this.categoryGateway.update(any()))
             .thenAnswer(returnsFirstArg());
@@ -165,7 +165,7 @@ public class UpdateCategoryUseCaseTest {
         );
 
         when(categoryGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(Category.with(aCategory)));
+                .thenReturn(Optional.of(Category.with(aCategory.clone())));
 
         when(categoryGateway.update(any()))
                 .thenThrow(new IllegalStateException(expectedErrorMessage));

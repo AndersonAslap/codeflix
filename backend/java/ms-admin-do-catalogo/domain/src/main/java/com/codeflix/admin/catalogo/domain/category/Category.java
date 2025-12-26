@@ -5,7 +5,7 @@ import com.codeflix.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 
-public class Category extends AggregateRoot<CategoryId> {
+public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
     private String name;
     private String description;
@@ -145,5 +145,14 @@ public class Category extends AggregateRoot<CategoryId> {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
