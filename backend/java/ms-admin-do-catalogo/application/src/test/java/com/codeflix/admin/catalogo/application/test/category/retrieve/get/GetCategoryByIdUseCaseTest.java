@@ -1,5 +1,6 @@
 package com.codeflix.admin.catalogo.application.test.category.retrieve.get;
 
+import com.codeflix.admin.catalogo.application.category.retrieve.get.DefaultGetCategoryByIdUseCase;
 import com.codeflix.admin.catalogo.domain.category.Category;
 import com.codeflix.admin.catalogo.domain.category.CategoryGateway;
 import com.codeflix.admin.catalogo.domain.category.CategoryId;
@@ -83,8 +84,11 @@ public class GetCategoryByIdUseCaseTest {
         when(this.categoryGateway.findById(eq(expectedId)))
                 .thenThrow(new IllegalStateException(expectedMessageError));
 
-        final var notification = this.getCategoryByIdUseCase.execute(expectedId.getValue()).getLeft();
+        final var notification = Assertions.assertThrows(
+                IllegalStateException.class,
+                () -> this.getCategoryByIdUseCase.execute(expectedId.getValue())
+        );
 
-        Assertions.assertEquals(expectedErrorMessage, notification.getMessage());
+        Assertions.assertEquals(expectedMessageError, notification.getMessage());
     }
 }
