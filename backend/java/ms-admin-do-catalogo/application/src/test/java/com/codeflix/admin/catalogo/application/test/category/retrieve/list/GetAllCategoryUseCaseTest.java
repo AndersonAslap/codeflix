@@ -1,5 +1,7 @@
 package com.codeflix.admin.catalogo.application.test.category.retrieve.list;
 
+import com.codeflix.admin.catalogo.application.category.retrieve.list.DefaultGetAllCategoryUseCase;
+import com.codeflix.admin.catalogo.application.category.retrieve.list.GetAllCategoryOutput;
 import com.codeflix.admin.catalogo.domain.category.Category;
 import com.codeflix.admin.catalogo.domain.category.CategoryGateway;
 import com.codeflix.admin.catalogo.domain.category.CategorySearchQuery;
@@ -22,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class GetAllCategoryUseCaseTest {
 
     @InjectMocks
-    private DefaultGetAllCategoriesUseCase getAllCategoriesUseCase;
+    private DefaultGetAllCategoryUseCase getAllCategoriesUseCase;
 
     @Mock
     private CategoryGateway categoryGateway;
@@ -49,10 +51,10 @@ public class GetAllCategoryUseCaseTest {
                 new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
-                new Pagination<>(expectedPage, expectedPage, categories.size(), categories);
+                new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
         final var expectedItemsCount = 2;
-        final var expectedResult = expectedPagination.map(CategoryListOutput::from);
+        final var expectedResult = expectedPagination.map(GetAllCategoryOutput::from);
 
         when(categoryGateway.findAll(eq(query)))
                 .thenReturn(expectedPagination);
@@ -61,7 +63,7 @@ public class GetAllCategoryUseCaseTest {
 
         Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedResult, actualResult);
-        Assertions.assertEquals(expectedPage, actualResult.currentPage());
+        Assertions.assertEquals(expectedPage, actualResult.page());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(categories.size(), actualResult.total());
     }
@@ -83,7 +85,7 @@ public class GetAllCategoryUseCaseTest {
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
         final var expectedItemsCount = 0;
-        final var expectedResult = expectedPagination.map(CategoryListOutput::from);
+        final var expectedResult = expectedPagination.map(GetAllCategoryOutput::from);
 
         when(categoryGateway.findAll(eq(query)))
                 .thenReturn(expectedPagination);
@@ -92,7 +94,7 @@ public class GetAllCategoryUseCaseTest {
 
         Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedResult, actualResult);
-        Assertions.assertEquals(expectedPage, actualResult.currentPage());
+        Assertions.assertEquals(expectedPage, actualResult.page());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(categories.size(), actualResult.total());
     }
