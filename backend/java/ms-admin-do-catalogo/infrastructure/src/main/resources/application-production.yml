@@ -1,0 +1,7 @@
+postgres:
+  username: ${DATABASE_POSTGRES_USERNAME:root}
+  password: ${DATABASE_POSTGRES_PASSWORD:root}
+  url: ${DATABASE_POSTGRES_URL:localhost:5433}
+  database: ${DATABASE_POSTGRES_SCHEMA:db_codeflix_admin_catalog}
+
+# Twelve Factors, regras para configs de produção (pesquisar)
