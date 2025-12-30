@@ -1,2 +1,8 @@
 server:
   port: 8082
+
+postgres:
+  username: root
+  password: root
+  url: localhost:5433
+  database: db_codeflix_admin_catalog
