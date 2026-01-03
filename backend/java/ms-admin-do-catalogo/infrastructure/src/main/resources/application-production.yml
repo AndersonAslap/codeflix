@@ -5,3 +5,9 @@ postgres:
   database: ${DATABASE_POSTGRES_SCHEMA:db_codeflix_admin_catalog}
 
 # Twelve Factors, regras para configs de produção (pesquisar)
+
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
