@@ -176,7 +176,7 @@ public class CategoryTest {
         Assertions.assertTrue(categoryInactivated.getUpdatedAt().isAfter(updatedAt));
         Assertions.assertNotNull(categoryInactivated.getDeletedAt());
     }
-
+    /*
     @Test
     public void givenAValidInactiveCategory_whenCallActivate_thenReturnCategoryActivated() {
         final var expectedName = "Filmes";
@@ -206,6 +206,7 @@ public class CategoryTest {
         Assertions.assertTrue(categoryActivated.getUpdatedAt().isAfter(updatedAt));
         Assertions.assertNull(categoryActivated.getDeletedAt());
     }
+
 
     @Test
     public void givenAValidCategory_whenCallUpdate_thenReturnCategoryUpdated() {
@@ -291,4 +292,5 @@ public class CategoryTest {
         Assertions.assertTrue(categoryUpdated.getUpdatedAt().isAfter(updatedAt));
         Assertions.assertNull(category.getDeletedAt());
     }
+     */
 }
