@@ -22,10 +22,7 @@ public class CategoryPostgresSQLGateway implements CategoryGateway {
 
     @Override
     public Category create(Category category) {
-        this.categoryRepository.save(
-                CategoryJpaEntity.from(category)
-        );
-        return category;
+        return this.categoryRepository.save(CategoryJpaEntity.from(category)).toAggregate();
     }
 
     @Override
