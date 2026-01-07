@@ -21,27 +21,31 @@ public class CategoryPostgresSQLGateway implements CategoryGateway {
     }
 
     @Override
-    public Category create(Category category) {
-        return this.categoryRepository.save(CategoryJpaEntity.from(category)).toAggregate();
+    public Category create(final Category category) {
+        return save(category);
     }
 
     @Override
-    public Category update(Category category) {
-        return null;
+    public Category update(final Category category) {
+        return save(category);
     }
 
     @Override
-    public void deleteById(CategoryId categoryId) {
+    public void deleteById(final CategoryId categoryId) {
 
     }
 
     @Override
-    public Optional<Category> findById(CategoryId categoryId) {
+    public Optional<Category> findById(final CategoryId categoryId) {
         return Optional.empty();
     }
 
     @Override
-    public Pagination<Category> findAll(CategorySearchQuery query) {
+    public Pagination<Category> findAll(final CategorySearchQuery query) {
         return null;
+    }
+
+    private Category save(final Category category) {
+        return this.categoryRepository.save(CategoryJpaEntity.from(category)).toAggregate();
     }
 }
