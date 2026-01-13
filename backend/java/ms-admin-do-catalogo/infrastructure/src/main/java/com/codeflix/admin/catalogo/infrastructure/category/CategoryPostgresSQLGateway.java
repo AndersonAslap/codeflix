@@ -32,7 +32,10 @@ public class CategoryPostgresSQLGateway implements CategoryGateway {
 
     @Override
     public void deleteById(final CategoryId categoryId) {
-
+        final String id = categoryId.getValue();
+        if (this.categoryRepository.existsById(id)) {
+            this.categoryRepository.deleteById(id);
+        }
     }
 
     @Override
