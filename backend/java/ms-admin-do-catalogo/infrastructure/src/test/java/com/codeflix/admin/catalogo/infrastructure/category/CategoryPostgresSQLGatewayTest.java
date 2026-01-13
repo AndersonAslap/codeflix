@@ -1,6 +1,7 @@
 package com.codeflix.admin.catalogo.infrastructure.category;
 
 import com.codeflix.admin.catalogo.domain.category.Category;
+import com.codeflix.admin.catalogo.domain.category.CategoryId;
 import com.codeflix.admin.catalogo.infrastructure.PostgresSQLGatewayTest;
 import com.codeflix.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.codeflix.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -100,5 +101,21 @@ public class CategoryPostgresSQLGatewayTest {
         Assertions.assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         Assertions.assertEquals(aCategory.getDeletedAt(), actualEntity.getDeletedAt());
         Assertions.assertNull(actualEntity.getDeletedAt());
+    }
+
+    @Test
+    public void givenAPrePersistedCategoryAndValidCategoryId_whenTryToDeleteIt_shouldDeleteCategory() {
+        final var category = Category.newCategory("Filme", null, true);
+        categoryRepository.saveAndFlush(CategoryJpaEntity.from(category));
+        Assertions.assertEquals(1, categoryRepository.count());
+        categoryGateway.deleteById(category.getId());
+        Assertions.assertEquals(0, categoryRepository.count());
+    }
+
+    @Test
+    public void  givenInvalidCategoryId_whenTryToDeleteIt_shouldDeleteCategory() {
+        Assertions.assertEquals(0, categoryRepository.count());
+        categoryGateway.deleteById(CategoryId.from("invalid"));
+        Assertions.assertEquals(0, categoryRepository.count());
     }
 }
