@@ -135,12 +135,19 @@ public class CategoryPostgresSQLGatewayTest {
 
         final var actualEntity = categoryGateway.findById(aCategory.getId()).get();
 
-        Assertions.assertEquals(aCategory.getId().getValue(), actualEntity.getId());
+        Assertions.assertEquals(aCategory.getId(), actualEntity.getId());
         Assertions.assertEquals(expectedName, actualEntity.getName());
         Assertions.assertEquals(expectedDescription, actualEntity.getDescription());
         Assertions.assertEquals(expectedIsActive, actualEntity.isActive());
         Assertions.assertEquals(aCategory.getCreatedAt(), actualEntity.getCreatedAt());
         Assertions.assertEquals(aCategory.getDeletedAt(), actualEntity.getDeletedAt());
         Assertions.assertNull(actualEntity.getDeletedAt());
+    }
+
+    @Test
+    public void givenValidCategoryIdNotStored_whenCallsFindById_shouldReturnEmpty() {
+        Assertions.assertEquals(0, categoryRepository.count());
+        final var category = categoryGateway.findById(CategoryId.from("empty"));
+        Assertions.assertTrue(category.isEmpty());
     }
 }

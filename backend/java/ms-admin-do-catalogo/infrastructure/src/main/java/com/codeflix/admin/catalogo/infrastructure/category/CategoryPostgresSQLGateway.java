@@ -40,7 +40,8 @@ public class CategoryPostgresSQLGateway implements CategoryGateway {
 
     @Override
     public Optional<Category> findById(final CategoryId categoryId) {
-        return Optional.empty();
+        return this.categoryRepository.findById(categoryId.getValue())
+                .map(CategoryJpaEntity::toAggregate);
     }
 
     @Override
