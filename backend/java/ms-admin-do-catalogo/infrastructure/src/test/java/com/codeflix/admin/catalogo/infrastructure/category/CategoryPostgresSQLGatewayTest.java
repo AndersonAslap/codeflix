@@ -118,4 +118,29 @@ public class CategoryPostgresSQLGatewayTest {
         categoryGateway.deleteById(CategoryId.from("invalid"));
         Assertions.assertEquals(0, categoryRepository.count());
     }
+
+    @Test
+    public void givenAPrePersistedCategoryAndValidCategoryId_whenCallsFindById_shouldReturnCategory() {
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = true;
+
+        final var aCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        categoryRepository.saveAndFlush(CategoryJpaEntity.from(aCategory));
+
+        Assertions.assertEquals(1, categoryRepository.count());
+
+        final var actualEntity = categoryGateway.findById(aCategory.getId()).get();
+
+        Assertions.assertEquals(aCategory.getId().getValue(), actualEntity.getId());
+        Assertions.assertEquals(expectedName, actualEntity.getName());
+        Assertions.assertEquals(expectedDescription, actualEntity.getDescription());
+        Assertions.assertEquals(expectedIsActive, actualEntity.isActive());
+        Assertions.assertEquals(aCategory.getCreatedAt(), actualEntity.getCreatedAt());
+        Assertions.assertEquals(aCategory.getDeletedAt(), actualEntity.getDeletedAt());
+        Assertions.assertNull(actualEntity.getDeletedAt());
+    }
 }
