@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public record Pagination<T>(
-        int page,
+        int currentPage,
         int perPage,
         long total,
         List<T> items
@@ -15,6 +15,6 @@ public record Pagination<T>(
                                     .map(mapper)
                                     .toList();
 
-        return new Pagination<>(page(), perPage(), total(), newList);
+        return new Pagination<>(currentPage(), perPage(), total(), newList);
     }
 }
