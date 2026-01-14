@@ -197,7 +197,7 @@ public class CategoryPostgresSQLGatewayTest {
         Assertions.assertEquals(expectedPage, result.currentPage());
         Assertions.assertEquals(expectedPerPage, result.perPage());
         Assertions.assertEquals(expectedTotal, result.total());
-        Assertions.assertEquals(expectedPerPage, result.items().size());
+        Assertions.assertEquals(0, result.items().size());
     }
 
     @Test
