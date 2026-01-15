@@ -16,7 +16,7 @@ public class CreateCategoryUseCaseIntegrationTest {
     private CategoryRepository categoryRepository;
 
     @Test
-    public void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() {
+    public void givenAValidCommand_whenCallsCreateCategoryUseCase_shouldReturnCategoryId() {
         final var expectedName = "filmes";
         final var expectedDescription = "description";
         final var expectedIsActive = true;

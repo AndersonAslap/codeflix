@@ -63,7 +63,7 @@ public class GetAllCategoryUseCaseTest {
 
         Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedResult, actualResult);
-        Assertions.assertEquals(expectedPage, actualResult.page());
+        Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(categories.size(), actualResult.total());
     }
@@ -94,7 +94,7 @@ public class GetAllCategoryUseCaseTest {
 
         Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedResult, actualResult);
-        Assertions.assertEquals(expectedPage, actualResult.page());
+        Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(categories.size(), actualResult.total());
     }
