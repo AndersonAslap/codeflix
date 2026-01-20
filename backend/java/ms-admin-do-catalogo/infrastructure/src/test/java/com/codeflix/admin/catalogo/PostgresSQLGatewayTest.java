@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Inherited
 @ActiveProfiles("test")
 @ComponentScan(includeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*[PostgresSQLGateway]")
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[PostgresSQLGateway]")
 })
 @DataJpaTest
 @ExtendWith(CleanUpExtension.class)
