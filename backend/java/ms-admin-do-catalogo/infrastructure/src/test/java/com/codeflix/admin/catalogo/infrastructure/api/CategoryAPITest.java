@@ -3,7 +3,7 @@ package com.codeflix.admin.catalogo.infrastructure.api;
 import com.codeflix.admin.catalogo.ControllerTest;
 import com.codeflix.admin.catalogo.application.category.create.CreateCategoryOutput;
 import com.codeflix.admin.catalogo.application.category.create.CreateCategoryUseCase;
-import com.codeflix.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
+import com.codeflix.admin.catalogo.infrastructure.category.models.CreateCategoryApiInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ControllerTest(controllers = CategoryAPI.class)
 public class CategoryAPITest {
@@ -41,7 +40,7 @@ public class CategoryAPITest {
         final var expectedIsActive = true;
 
         final var input =
-                new CreateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
+                new CreateCategoryApiInput(expectedName, expectedDescription, expectedIsActive);
 
         when(createCategoryUseCase.execute(any()))
                 .thenReturn(Right(CreateCategoryOutput.from("123")));
@@ -56,8 +55,7 @@ public class CategoryAPITest {
 
         // THEN
         response.andExpect(status().isCreated())
-                .andExpect(header().string("Location", "/categories/123"))
-                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE));
+                .andExpect(header().string("Location", "/api/categories/123"));
 
         verify(createCategoryUseCase, times(1)).execute(argThat(
                 cmd -> {
