@@ -35,7 +35,7 @@ public class CreateCategoryUseCaseIntegrationTest {
         Assertions.assertNotNull(output);
         Assertions.assertNotNull(output.categoryId());
 
-        final var categoryRegistered = this.categoryRepository.findById(output.categoryId().getValue()).get();
+        final var categoryRegistered = this.categoryRepository.findById(output.categoryId()).get();
 
         Assertions.assertNotNull(categoryRegistered);
         Assertions.assertEquals(expectedName, categoryRegistered.getName());
